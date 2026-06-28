@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>癌症主題館｜知識闖關</title>
+  <style>
+    :root{--ink:#343349;--purple:#7456d8;--pink:#ff7da8;--yellow:#ffd45c;--mint:#67d9b0;--bg:#fff6d8;--white:#fffdf8;--shadow:#c7a954}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;background:radial-gradient(circle at 12% 18%,#fff 0 5%,transparent 5.5%),radial-gradient(circle at 90% 12%,#ffbfcd 0 7%,transparent 7.5%),linear-gradient(145deg,#fff9df,#ffefb9);display:grid;place-items:center;overflow-x:hidden}
+    body::before,body::after{content:"";position:fixed;border-radius:48% 52% 55% 45%;z-index:-1;filter:drop-shadow(0 10px 0 rgba(99,69,29,.12))}body::before{width:220px;height:190px;left:-65px;bottom:-45px;background:#8be0c0;transform:rotate(18deg)}body::after{width:190px;height:170px;right:-45px;bottom:5%;background:#bcaaff;transform:rotate(-14deg)}
+    main{width:min(92vw,760px);padding:28px 0}.card{position:relative;background:var(--white);border:4px solid #fff;border-radius:34px;padding:clamp(22px,5vw,44px);box-shadow:0 12px 0 #e5c875,0 18px 35px rgba(88,65,26,.16)}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;background:#efe9ff;color:#654bc6;font-weight:900}.blob{width:25px;height:25px;background:var(--purple);border-radius:55% 45% 52% 48%;position:relative}.blob::after{content:"";position:absolute;width:7px;height:7px;background:white;border-radius:50%;left:6px;top:6px;box-shadow:9px 2px 0 white}
+    h1{margin:15px 0 8px;font-size:clamp(30px,6vw,50px);line-height:1.1}h1 span{color:var(--pink)}.subtitle{font-size:17px;line-height:1.7;margin:0 0 20px;color:#6c687b}.hidden{display:none!important}
+    button{font:inherit;cursor:pointer;border:0}.primary{padding:14px 28px;border-radius:18px;background:var(--purple);color:white;font-weight:900;font-size:18px;box-shadow:0 6px 0 #4e3a99;transition:.12s}.primary:hover{transform:translateY(-2px)}.primary:active{transform:translateY(4px);box-shadow:0 2px 0 #4e3a99}
+    .loader{width:58px;height:58px;margin:22px auto;border:9px solid #eadfff;border-top-color:var(--purple);border-radius:45% 55%;animation:spin .85s linear infinite}.loading{text-align:center;font-weight:800;color:#675d7b}@keyframes spin{to{transform:rotate(360deg)}}
+    .story-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.story-head strong{color:#766e83;font-size:14px}.story-scene{position:relative;border-radius:26px;overflow:hidden;background:#f4f9ff;border:4px solid #e8e4ff;box-shadow:0 7px 0 #d9d2ed}.patient-image{display:block;width:100%;aspect-ratio:1.9/1;object-fit:cover}.speech{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:48%;padding:20px 22px;background:rgba(255,253,248,.96);border:3px solid #fff;border-radius:24px;color:#464156;font-size:clamp(15px,2.2vw,18px);font-weight:800;line-height:1.75;box-shadow:0 8px 25px rgba(55,54,84,.18)}.speech::before{content:"";position:absolute;left:-20px;top:48%;border-width:12px 20px 12px 0;border-style:solid;border-color:transparent #fff transparent transparent}.story-action{text-align:center;margin-top:22px}.story-action p{margin:0 0 14px;color:#70687e;font-weight:700}.story-action .primary{min-width:180px}
+    .topline{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}.counter{font-weight:900;color:#675d7b}.progress{height:15px;background:#eee7dc;border-radius:99px;overflow:hidden;flex:1;border:2px solid white;box-shadow:inset 0 2px 3px #d8d0c4}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mint),#a6ea85);border-radius:99px;transition:.3s}
+    .question{font-size:clamp(21px,4vw,29px);line-height:1.5;margin:10px 0 24px;font-weight:900}.options{display:grid;gap:13px}.option{text-align:left;padding:15px 18px;border:3px solid #e8e0f3;border-radius:18px;background:#fff;color:var(--ink);font-weight:800;line-height:1.45;box-shadow:0 5px 0 #ded4e9;transition:.15s}.option:hover{border-color:#a893ef;transform:translateY(-2px)}.option:disabled{cursor:default}.option.correct{background:#dff8df;border-color:#55bf72}.option.wrong{background:#ffe1e4;border-color:#ec6e78}
+    .source{margin-top:24px;font-size:13px;color:#8c8497;text-align:center}.result{text-align:center}.emoji{font-size:78px;display:block;animation:bob 1.3s ease-in-out infinite alternate}.success-badge{display:block;width:min(68vw,310px);aspect-ratio:1;margin:0 auto 8px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 12px 16px rgba(31,82,94,.25));animation:badgeIn .65s cubic-bezier(.2,.9,.25,1.25),bob 1.5s .65s ease-in-out infinite alternate}@keyframes badgeIn{from{opacity:0;transform:scale(.55) rotate(-12deg)}to{opacity:1;transform:scale(1) rotate(0)}}@keyframes bob{to{transform:translateY(-8px) rotate(4deg)}}.result h2{font-size:clamp(31px,6vw,47px);margin:8px 0}.result p{font-size:18px;line-height:1.7}.flash{animation:greenFlash .2s ease}@keyframes greenFlash{50%{background:#8af0a1}}.shake{animation:shake .3s linear}@keyframes shake{20%,60%{transform:translateX(-9px) rotate(-1deg)}40%,80%{transform:translateX(9px) rotate(1deg)}}
+    @media(max-width:620px){main{padding:15px 0}.card{border-radius:26px;padding:20px}.option{padding:13px 14px}.story-scene{overflow:visible;background:#f4f9ff}.patient-image{aspect-ratio:1.45/1;border-radius:22px 22px 0 0;object-position:35% center}.speech{position:relative;right:auto;top:auto;transform:none;width:calc(100% - 20px);margin:-8px auto 12px;font-size:15px;padding:17px 18px}.speech::before{left:32px;top:-18px;border-width:0 12px 18px;border-color:transparent transparent #fff}}
+    /* 圖片與主訴各自佔一欄，避免對話框遮住患者 */
+    .story-scene{display:grid;grid-template-columns:1.08fr .92fr;align-items:stretch}
+    .patient-image{height:100%;aspect-ratio:auto;object-position:32% center}
+    .speech{position:relative;right:auto;top:auto;transform:none;width:auto;margin:0;padding:22px;display:flex;align-items:center;border-radius:0;background:#fffdf8;box-shadow:none}
+    .speech::before{left:-18px;top:46%}
+    @media(max-width:620px){.story-scene{display:block;overflow:hidden}.patient-image{height:auto;aspect-ratio:1.45/1}.speech{width:100%;margin:0;border-radius:0;padding:18px}.speech::before{display:none}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<main>
+  <section class="card" id="card" aria-live="polite">
+    <a href="../慢性病探索地圖/index.html" style="position:fixed;z-index:20;left:16px;top:16px;padding:10px 14px;border-radius:14px;background:#fff;color:#55439e;text-decoration:none;font-weight:900;box-shadow:0 5px 0 #c8bce8">← 回到慢性病探索地圖</a>
+    <div id="loading" class="loading"><div class="loader"></div><p>正在整理癌症知識題庫⋯</p></div>
+    <div id="story" class="hidden">
+      <div class="story-head"><div class="badge"><i class="blob"></i> 癌症主題館</div><strong>一位患者的心聲</strong></div>
+      <div class="story-scene">
+        <img class="patient-image" src="癌症患者.png" alt="住院治療中的癌症患者">
+        <blockquote class="speech">「最開始是發現上廁所的習慣完全變了，不是便秘就是拉肚子，而且已經持續好一段時間。拖了半年都沒去看醫生，如果能重新選一次，我應該不會一直拖著不去篩檢。」</blockquote>
+      </div>
+      <div class="story-action"><p>留意身體發出的訊號，從認識癌症開始。</p><button class="primary" id="storyStart">開始答題</button><p class="source" id="storySource"></p></div>
+    </div>
+    <div id="intro" class="hidden">
+      <div class="badge"><i class="blob"></i> 慢性病探索小遊戲</div>
+      <h1>癌症<span>主題館</span></h1>
+      <p class="subtitle">挑戰 5 題癌症知識，全部答對就能成功闖關！答錯也沒關係，那一題會陪你再練習一次。</p>
+      <button class="primary" id="start">開始挑戰</button>
+      <p class="source" id="sourceStatus"></p>
+    </div>
+    <div id="game" class="hidden">
+      <div class="topline"><span class="counter" id="counter"></span><div class="progress"><i id="bar"></i></div></div>
+      <div class="badge">🧠 癌症知識</div>
+      <h2 class="question" id="question"></h2>
+      <div class="options" id="options"></div>
+    </div>
+    <div id="result" class="result hidden">
+      <img class="success-badge hidden" id="successBadge" src="防癌偵查徽章.png" alt="防癌偵查徽章">
+      <span class="emoji" id="emoji"></span><h2 id="resultTitle"></h2><p id="resultText"></p>
+      <button class="primary" id="again"></button>
+    </div>
+  </section>
+</main>
+<script>
+  const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vT7jnociHlwn8P95es4fx91U-8g5iwm98He97QhpXxEU89xgA_7VU9PgMBSQ32LF9ws9H0QERKWz0Vw/pub?output=csv';
+  const fallback=[
+    ['癌症是什麼？','體內細胞異常增生且失去控制','一種只會冬天發生的感冒','只由外傷造成的疾病','只會發生在老年人身上'],
+    ['下列何者有助於降低罹癌風險？','不吸菸並維持健康生活','長期熬夜','大量嚼食檳榔','忽略身體異常'],
+    ['定期接受癌症篩檢的主要目的為何？','及早發現並及早治療','保證永遠不會生病','取代所有健康生活習慣','只為取得證明'],
+    ['吸菸與哪一種癌症關係最密切？','肺癌','近視','骨折','蛀牙'],
+    ['發現身體有持續異常時，較適當的做法是？','儘早就醫評估','自行忽略','只聽網路偏方','等幾年再說'],
+    ['嚼食檳榔會增加哪一種癌症風險？','口腔癌','皮膚曬傷','近視','中耳炎'],
+    ['面對癌症資訊，應優先參考什麼來源？','醫療專業與政府衛教資訊','未查證的轉傳訊息','匿名偏方廣告','誇大療效貼文']
+  ].map((x,i)=>({id:'f'+i,q:x[0],correct:x[1],options:x.slice(1)}));
+  const $=s=>document.querySelector(s), card=$('#card');
+  let bank=[], round=[], index=0, retained=null, usingFallback=false;
+
+  function parseCSV(text){
+    const rows=[]; let row=[],field='',quoted=false;
+    for(let i=0;i<text.length;i++){const c=text[i];
+      if(c==='"'){if(quoted&&text[i+1]==='"'){field+='"';i++;}else quoted=!quoted;}
+      else if(c===','&&!quoted){row.push(field);field='';}
+      else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(field);if(row.some(v=>v.trim()))rows.push(row);row=[];field='';}
+      else field+=c;
+    }
+    row.push(field);if(row.some(v=>v.trim()))rows.push(row);return rows;
+  }
+  function clean(v){return (v||'').replace(/^\uFEFF/,'').trim()}
+  function toQuestions(text){
+    const rows=parseCSV(text); if(rows.length<2)throw Error('題庫沒有資料');
+    const head=rows[0].map(clean), pos=n=>head.indexOf(n), ti=pos('主題'),qi=pos('題目'),ai=pos('A');
+    if([ti,qi,ai].includes(-1))throw Error('題庫欄位格式不符');
+    return rows.slice(1).filter(r=>clean(r[ti])==='癌症').map((r,i)=>{
+      const choices=[r[ai],r[pos('B')],r[pos('C')],r[pos('D')]].map(clean).filter(v=>v&&v!=='空');
+      return {id:'s'+i,q:clean(r[qi]),correct:clean(r[ai]),options:choices};
+    }).filter(x=>x.q&&x.correct&&x.options.length>=2);
+  }
+  function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+  function buildRound(){
+    const first=retained?[retained]:[], others=bank.filter(q=>!retained||q.id!==retained.id);
+    round=shuffle([...first,...shuffle(others).slice(0,5-first.length)]).slice(0,5);
+    if(round.length<5) round=shuffle([...round,...fallback.filter(f=>!round.some(q=>q.q===f.q)).slice(0,5-round.length)]);
+    index=0;show('game');render();
+  }
+  function show(id){['loading','story','intro','game','result'].forEach(x=>$('#'+x).classList.toggle('hidden',x!==id))}
+  function render(){
+    const q=round[index];$('#counter').textContent=`第 ${index+1} / 5 題`;$('#bar').style.width=`${index*20}%`;$('#question').textContent=q.q;
+    const box=$('#options');box.innerHTML='';shuffle(q.options).forEach(answer=>{const b=document.createElement('button');b.className='option';b.textContent=answer;b.onclick=()=>answerQuestion(b,answer,q);box.appendChild(b)});
+  }
+  function answerQuestion(button,answer,q){
+    [...document.querySelectorAll('.option')].forEach(b=>b.disabled=true);
+    if(answer===q.correct){button.classList.add('correct');card.classList.add('flash');setTimeout(()=>card.classList.remove('flash'),200);$('#bar').style.width=`${(index+1)*20}%`;setTimeout(()=>{index++;index===5?finish(true):render()},430)}
+    else{button.classList.add('wrong');[...document.querySelectorAll('.option')].find(b=>b.textContent===q.correct)?.classList.add('correct');card.classList.add('shake');setTimeout(()=>card.classList.remove('shake'),300);retained=q;setTimeout(()=>finish(false,q),650)}
+  }
+  function finish(win,q){show('result');$('#successBadge').classList.toggle('hidden',!win);$('#emoji').classList.toggle('hidden',win);$('#emoji').textContent='🌱';$('#resultTitle').textContent=win?'闖關成功！':'再挑戰一次！';$('#resultText').textContent=win?'恭喜獲得「防癌偵查徽章」！五題全答對，你已完成癌症主題館！':'剛才答錯的題目會保留，再搭配其他隨機題目組成新的五題。';$('#again').textContent=win?'再玩一次':'重新挑戰';if(win){retained=null;saveCertificate('cancer')}}
+  function saveCertificate(id){let s={};try{s=JSON.parse(localStorage.getItem('cert_dynasty')||'{}')||{}}catch(e){}s[id]=true;localStorage.setItem('cert_dynasty',JSON.stringify(s));localStorage.setItem('cert_idiom',Object.values(s).filter(Boolean).length);localStorage.setItem('cert_warrior',id)}
+  $('#storyStart').onclick=buildRound;$('#start').onclick=buildRound;$('#again').onclick=buildRound;
+  async function init(){
+    try{const r=await fetch(CSV_URL,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);bank=toQuestions(await r.text());if(bank.length<5)throw Error('癌症題目少於五題');}
+    catch(e){console.warn('改用內建範例題庫：',e);bank=fallback;usingFallback=true}
+    $('#sourceStatus').textContent=usingFallback?'目前使用內建範例題庫（線上題庫暫時無法讀取）':`已載入線上題庫，共 ${bank.length} 題癌症知識題`;
+    $('#storySource').textContent=$('#sourceStatus').textContent;
+    setTimeout(()=>show('story'),350);
+  }
+  init();
+</script>
+</body>
+</html>
